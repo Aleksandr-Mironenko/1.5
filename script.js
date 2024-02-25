@@ -58,7 +58,7 @@ buttons2.forEach(function(element) {
 
 var swiper = new Swiper('.swiper--modifier', { //Создаем свайпер
   slidesPerView: 'auto', //Количество слайдов которые видны
-  slidesPerGroup: 4, //Цена деления пегинации - сколько перелист за 1 раз
+  slidesPerGroup: 1, //Цена деления пегинации - сколько перелист за 1 раз
   spaceBetween: 20, //Отступы
   pagination: {
       el: '.swiper-pagination', //Назначение места пегинации

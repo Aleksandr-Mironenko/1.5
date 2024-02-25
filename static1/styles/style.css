@@ -160,6 +160,9 @@ a:hover {
     display: block;
   }
 
+  .swiper-pagination {
+  display: none;
+}
 }
 
 

@@ -55,41 +55,43 @@ buttons2.forEach(function(element) {
 }
 
 
+let swiper = null;
 
-var swiper = new Swiper('.swiper--modifier', { //Создаем свайпер
-  slidesPerView: 'auto', //Количество слайдов которые видны
-  slidesPerGroup: 1, //Цена деления пегинации - сколько перелист за 1 раз
-  spaceBetween: 20, //Отступы
-  pagination: {
-      el: '.swiper-pagination', //Назначение места пегинации
-      clickable: true, //Возможность кликать (не понятно надо по заданию?) 
-  },
+function initSwiper() {
+  swiper = new Swiper('.swiper', {
+    slidesPerView: 'auto',
+    slidesPerGroup: 1,
+    spaceBetween: 20,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true
+    }
+  });
+}
 
-});
-
-window.addEventListener('resize', function() {//Слушатель для окна при изменении экрана проверяем ширину
-  
-  checkScreenWidth();// Проверяем его ширину
-});
- 
-function checkScreenWidth() {
-  if (window.innerWidth < 768) {// Проверяем ширину экрана если меньшем 768px
-     
-      if (!swiper.initialized) {//С условием что не включен
-          swiper.init();
-          swiper.initialized = true;
-      }
-  } else {// Убираем если больше 768px
-      if (swiper.initialized) { //С условием что включен
-          swiper.destroy();
-          swiper.initialized = false;
-      }
+function destroySwiper() {
+  if (swiper !== null) {
+    swiper.destroy(true, true);
+    swiper = null;
   }
 }
 
+function checkScreenWidth() {
+  if (window.innerWidth < 768) {
+    if (swiper === null) {
+      initSwiper(); // Вызов функции initSwiper() при необходимости
+    }
+  } else {
+    destroySwiper(); //Вызов функции destroySwiper() при необходимости
+  }
+}
 
+function handleResize() {
+  checkScreenWidth();
+}
 
+// Проверяем ширину экрана при загрузке страницы
+checkScreenWidth();
 
-
-
-
+// Обработчик события изменения размера окна
+window.addEventListener('resize', handleResize);
